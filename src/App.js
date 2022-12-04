@@ -1,6 +1,11 @@
 import './App.css';
+import React from 'react';
 
-let meme = ["meme 1", "meme 2", "meme 3"]
+
+
+
+let currMeme = 1;
+
 
 function NavBar() {
   return (
@@ -18,14 +23,37 @@ function Body() {
   )
 }
 
+function MemeThingy() {
 
-function NewMemeButton() {
-  return (
-    <div className='newMemeButton'>
-      <button className='newMemeButton--button'>Generate New Meme</button>
-    </div>
-  )
+  const [meme, setMemes] = React.useState(["meme 0"]);
+
+
+  function addMeme() {
+
+    setMemes([...meme, `meme ${currMeme}`]);
+    //console.log(meme);
+    currMeme++;
+  }
+
+  function NewMemeButton() {
+    return (
+      <div className='newMemeButton'>
+        <button className='newMemeButton--button' onClick={addMeme}>Generate New Meme</button>
+      </div>
+    )
+  }
+
+  return (<><ul>
+
+    {meme.map(m => <li key={m}>{m}</li>)}
+
+  </ul>
+    <NewMemeButton />
+  </>)
 }
+
+
+
 
 function Footer() {
   return (
@@ -41,12 +69,15 @@ function Footer() {
 
 
 function App() {
+
+
   return (
 
     <div className="App">
       <NavBar />
       <Body />
-      <NewMemeButton />
+      <MemeThingy />
+      {/* <NewMemeButton /> */}
       <Footer />
 
     </div>
